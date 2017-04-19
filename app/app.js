@@ -53,14 +53,14 @@ persistStore(store, {storage: AsyncStorage, whitelist: ["app"]});
 class App extends Component {
     render() {
         console.log("props: " + JSON.stringify(this.props));
-        const {fields: {name}, handleSubmit} = this.props;
+        const {fields: {name}, handleSubmit, submit} = this.props;
         return (
             <Provider store={store}>
                 <View>
                     <Text>Name</Text>
                     <Field name="name" component={TextInput} {...name}/>
                 </View>
-                <Button title="Submit" onPress={handleSubmit}/>
+                <Button title="Submit" onPress={handleSubmit(submit)}/>
             </Provider>)
     }
 }
