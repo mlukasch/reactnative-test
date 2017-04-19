@@ -11,7 +11,7 @@ import {takeEvery} from "redux-saga";
 import {AsyncStorage} from "react-native";
 import {persistStore, autoRehydrate} from "redux-persist";
 // Action-Type when rehydrating the state from storage:
-//import {REHYDRATE} from "redux-persist/constants";
+import {REHYDRATE} from "redux-persist/constants";
 
 
 const sagaMiddleware = createSagaMiddleware();
@@ -38,6 +38,9 @@ const reducer = (state, action) => {
             return state
     }
 }
+const submit = () => {
+    type:"SUBMIT"
+};
 const rootReducer = combineReducers({app: reducer, form: formReducer})
 sagaMiddleware.run(saga)
 
@@ -55,16 +58,15 @@ class App extends Component {
             <Provider store={store}>
                 <View>
                     <Text>Name</Text>
-                    {/*<Field name="name" component={TextInput} {...name}/>*/}
+                    <Field name="name" component={TextInput} {...name}/>
                 </View>
                 <Button title="Submit" onPress={handleSubmit}/>
             </Provider>)
     }
 }
 
-export default App;
 
-//export default reduxForm({
-//    form: "app",
-//    fields: ["name"]
-//})(App)
+export default reduxForm({
+    form: "app",
+    fields: ["name"]
+}, null, {submit})(App)
